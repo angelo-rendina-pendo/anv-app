@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <base href="/">
+        <link rel="icon" href="data:,">
+        <title>ANV app</title>
+        <script src=".libs/angular/angular.js"></script>
+        <script src=".libs/angular/angular-route.js"></script>
+        <script src=".libs/vue/vue.js"></script>
+        <script src=".libs/vue/vue-router.js"></script>
+        <script src=".libs/vuex/vuex.js"></script>
+
+        <script src="app/app-vuex.js"></script>
+        <script src="app/app-angular.js"></script>
+        <script src="app/app-vue.js"></script>
+    </head>
+    <body>
+        <div id="navbar">
+            <button onclick="navigate('/angularA')">Angular A</button>
+            <button onclick="navigate('/angularB')">Angular B</button>
+            <button onclick="navigate('/vueA')">Vue A</button>
+            <button onclick="navigate('/vueB')">Vue B</button>
+        </div>
+        <div id="ng-root" ng-app="anvApp">
+            <div ng-view></div>
+        </div>
+        <div id="vue-root"></div>
+    </body>
+</html>
+
+<script>
+vueRootApp.$mount("#vue-root");
+
+function navigate(tab) {
+    history.pushState(null, "", tab);
+    angularRootScope.$apply();
+    if (vueRootApp.$route.path !== tab) {
+        vueRouter.replace(tab);
+    }
+}
+</script>
